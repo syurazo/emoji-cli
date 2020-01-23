@@ -100,17 +100,23 @@ emoji::fuzzy() {
     }' 2>/dev/null
 }
 
-emoji::emoji_get() {
+emoji::emoji_get_by_field() {
+    local field=${1:-2}
+
     # reset filter
     _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
-
-	local awk_field=2
-	[ -n "${EMOJI_CLI_USE_EMOJI}" ] && awk_field=1
 
     cat <"$EMOJI_CLI_DICT" \
         | jq -r '.[]|"\(.emoji) \(":" + .aliases[0] + ":")"' \
         | eval "$_EMOJI_CLI_FILTER" \
-        | awk '{print $'"$awk_field"'}'
+        | awk '{print $'"$field"'}'
+}
+
+emoji::emoji_get() {
+	local awk_field=2
+	[ -n "${EMOJI_CLI_USE_EMOJI}" ] && awk_field=1
+
+    emoji::emoji_get_by_field $awk_field
 }
 
 emoji::emoji_get_with_tag() {
