@@ -119,6 +119,14 @@ emoji::emoji_get() {
     emoji::emoji_get_by_field $awk_field
 }
 
+emoji::emoji_get::emoji() {
+  emoji::emoji_get_by_field 1
+}
+
+emoji::emoji_get::alias() {
+  emoji::emoji_get_by_field 2
+}
+
 emoji::emoji_get_with_tag() {
     # reset filter
     _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
