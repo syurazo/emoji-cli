@@ -192,6 +192,8 @@ if (( ! $+commands[${"$(available "$EMOJI_CLI_FILTER")"%% *}] )); then
 fi
 # settings for keybind
 zle -N emoji::cli
-bindkey "$EMOJI_CLI_KEYBIND" emoji::cli
+if [ -n "$EMOJI_CLI_KEYBIND" ]; then
+    bindkey "$EMOJI_CLI_KEYBIND" emoji::cli
+fi
 
 # vim:ft=zsh
